@@ -28,14 +28,14 @@ Si vous n’avez pas de compte Microsoft, vous disposez de deux options pour obt
 
     ![Capture d’écran de la page inscrire une application](../../tutorial/images/aad-register-an-app.png)
 
-1. Choisissez **Inscrire**. Sur la page **Xamarin Graph Tutorial** , copiez la valeur de l' **ID d’application (client)** et enregistrez-la, vous en aurez besoin à l’étape suivante.
+1. Sélectionnez **Enregistrer**. Sur la page **Xamarin Graph Tutorial** , copiez la valeur de l' **ID d’application (client)** et enregistrez-la, vous en aurez besoin à l’étape suivante.
 
     ![Capture d’écran de l’ID d’application de la nouvelle inscription de l’application](../../tutorial/images/aad-application-id.png)
 
-1. Sélectionnez le lien **Ajouter un URI de redirection** . Sur la page **URI** de redirection, recherchez la section **URI de redirection suggérée pour les clients publics (mobile, bureau)** . Sélectionnez l’URI qui commence par `msal` et copiez-le, puis choisissez **Enregistrer**. Enregistrez l’URI de redirection copié, vous en aurez besoin à l’étape suivante.
+1. Sélectionnez le lien **Ajouter un URI de redirection** . Sur la page **URI** de redirection, recherchez la section **URI de redirection suggérée pour les clients publics (mobile, bureau)** . Sélectionnez l’URI qui commence par `msal` et copiez-le, puis sélectionnez **Enregistrer**. Enregistrez l’URI de redirection copié, vous en aurez besoin à l’étape suivante.
 
     ![Capture d’écran de la page des URI de redirection](../../tutorial/images/aad-redirect-uris.png)
 
 ## <a name="run-the-sample"></a>Exécution de l’exemple
 
-Dans Android Studio, choisissez **exécuter «application»** dans le menu **exécuter** .
+Dans Android Studio, sélectionnez **exécuter «application»** dans le menu **exécuter** .
