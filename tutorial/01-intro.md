@@ -1,20 +1,20 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-<span data-ttu-id="e64bf-101">Ce didacticiel vous apprend à créer une application Android qui utilise l’API Microsoft Graph pour récupérer des informations de calendrier pour un utilisateur.</span><span class="sxs-lookup"><span data-stu-id="e64bf-101">This tutorial teaches you how to build an Android app that uses the Microsoft Graph API to retrieve calendar information for a user.</span></span>
+<span data-ttu-id="9bfd1-101">Ce didacticiel vous apprend à créer une application Android qui utilise l’API Microsoft Graph pour récupérer des informations de calendrier pour un utilisateur.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-101">This tutorial teaches you how to build an Android app that uses the Microsoft Graph API to retrieve calendar information for a user.</span></span>
 
 > [!TIP]
-> <span data-ttu-id="e64bf-102">Si vous préférez télécharger simplement le didacticiel terminé, vous pouvez télécharger ou cloner le [référentiel GitHub](https://github.com/microsoftgraph/msgraph-training-android).</span><span class="sxs-lookup"><span data-stu-id="e64bf-102">If you prefer to just download the completed tutorial, you can download or clone the [GitHub repository](https://github.com/microsoftgraph/msgraph-training-android).</span></span>
+> <span data-ttu-id="9bfd1-102">Si vous préférez télécharger simplement le didacticiel terminé, vous pouvez télécharger ou cloner le [référentiel GitHub](https://github.com/microsoftgraph/msgraph-training-android).</span><span class="sxs-lookup"><span data-stu-id="9bfd1-102">If you prefer to just download the completed tutorial, you can download or clone the [GitHub repository](https://github.com/microsoftgraph/msgraph-training-android).</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="e64bf-103">Conditions préalables</span><span class="sxs-lookup"><span data-stu-id="e64bf-103">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="9bfd1-103">Conditions préalables</span><span class="sxs-lookup"><span data-stu-id="9bfd1-103">Prerequisites</span></span>
 
-<span data-ttu-id="e64bf-104">Avant de commencer ce didacticiel, [Android Studio](https://developer.android.com/studio/) doit être installé sur votre ordinateur de développement.</span><span class="sxs-lookup"><span data-stu-id="e64bf-104">Before you start this tutorial, you should have [Android Studio](https://developer.android.com/studio/) installed on your development machine.</span></span>
+<span data-ttu-id="9bfd1-104">Avant de commencer ce didacticiel, [Android Studio](https://developer.android.com/studio/) doit être installé sur votre ordinateur de développement.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-104">Before you start this tutorial, you should have [Android Studio](https://developer.android.com/studio/) installed on your development machine.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="e64bf-105">Ce didacticiel a été écrit avec Android Studio version 3.3.1 avec le 1.8.0 JRE et le kit de développement logiciel (SDK) Android 9,0.</span><span class="sxs-lookup"><span data-stu-id="e64bf-105">This tutorial was written with Android Studio version 3.3.1 with the 1.8.0 JRE and the Android 9.0 SDK.</span></span> <span data-ttu-id="e64bf-106">Les étapes de ce guide peuvent fonctionner avec d’autres versions, mais cela n’a pas été testé.</span><span class="sxs-lookup"><span data-stu-id="e64bf-106">The steps in this guide may work with other versions, but that has not been tested.</span></span>
+> <span data-ttu-id="9bfd1-105">Ce didacticiel a été rédigé avec Android Studio version 3.5.1 et le kit de développement logiciel (SDK) Android 10,0.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-105">This tutorial was written with Android Studio version 3.5.1 and the Android 10.0 SDK.</span></span> <span data-ttu-id="9bfd1-106">Les étapes de ce guide peuvent fonctionner avec d’autres versions, mais cela n’a pas été testé.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-106">The steps in this guide may work with other versions, but that has not been tested.</span></span>
 
-## <a name="watch-the-tutorial"></a><span data-ttu-id="e64bf-107">Regarder le didacticiel</span><span class="sxs-lookup"><span data-stu-id="e64bf-107">Watch the tutorial</span></span>
+## <a name="watch-the-tutorial"></a><span data-ttu-id="9bfd1-107">Regarder le didacticiel</span><span class="sxs-lookup"><span data-stu-id="9bfd1-107">Watch the tutorial</span></span>
 
-<span data-ttu-id="e64bf-108">Ce module a été enregistré et est disponible dans le canal YouTube de développement Office.</span><span class="sxs-lookup"><span data-stu-id="e64bf-108">This module has been recorded and is available in the Office Development YouTube channel.</span></span>
+<span data-ttu-id="9bfd1-108">Ce module a été enregistré et est disponible dans le canal YouTube de développement Office.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-108">This module has been recorded and is available in the Office Development YouTube channel.</span></span>
 
 <!-- markdownlint-disable MD033 MD034 -->
 <br/>
@@ -22,6 +22,6 @@
 > [!VIDEO https://www.youtube-nocookie.com/embed/BLmOmv4FSsQ]
 <!-- markdownlint-enable MD033 MD034 -->
 
-## <a name="feedback"></a><span data-ttu-id="e64bf-109">Commentaires</span><span class="sxs-lookup"><span data-stu-id="e64bf-109">Feedback</span></span>
+## <a name="feedback"></a><span data-ttu-id="9bfd1-109">Commentaires</span><span class="sxs-lookup"><span data-stu-id="9bfd1-109">Feedback</span></span>
 
-<span data-ttu-id="e64bf-110">Veuillez fournir des commentaires sur ce didacticiel dans le [référentiel GitHub](https://github.com/microsoftgraph/msgraph-training-android).</span><span class="sxs-lookup"><span data-stu-id="e64bf-110">Please provide any feedback on this tutorial in the [GitHub repository](https://github.com/microsoftgraph/msgraph-training-android).</span></span>
+<span data-ttu-id="9bfd1-110">Veuillez fournir des commentaires sur ce didacticiel dans le [référentiel GitHub](https://github.com/microsoftgraph/msgraph-training-android).</span><span class="sxs-lookup"><span data-stu-id="9bfd1-110">Please provide any feedback on this tutorial in the [GitHub repository](https://github.com/microsoftgraph/msgraph-training-android).</span></span>
