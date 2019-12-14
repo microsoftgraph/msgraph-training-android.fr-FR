@@ -258,7 +258,7 @@ Dans cette section, vous allez mettre à jour le manifeste pour permettre à MSA
     ```
 
     > [!NOTE]
-    > Notez que la `signIn` méthode vérifie d’abord s’il existe déjà un compte d’utilisateur dans le cache MSAL. Si c’est le cas, il essaie d’actualiser ses jetons de manière silencieuse, sans avoir à inviter l’utilisateur à chaque fois qu’ils lancent l’application.
+    > Notez que la `signIn` méthode effectue une connexion en mode silencieux (via `doSilentSignIn`). Le rappel de cette méthode effectue une connexion interactive si le mode silencieux échoue. Cela évite d’inviter l’utilisateur à chaque fois qu’il lance l’application.
 
 1. Enregistrez vos modifications et exécutez l’application.
 
@@ -396,7 +396,7 @@ Dans cette section, vous allez créer une classe d’assistance qui contiendra t
 
     ```java
     @Override
-    public void onSuccess(AuthenticationResult authenticationResult) {
+    public void onSuccess(IAuthenticationResult authenticationResult) {
         // Log the token for debug purposes
         String accessToken = authenticationResult.getAccessToken();
         Log.d("AUTH", String.format("Access token: %s", accessToken));
