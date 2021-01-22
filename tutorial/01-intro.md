@@ -1,27 +1,22 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-<span data-ttu-id="9bfd1-101">Ce didacticiel vous apprend à créer une application Android qui utilise l’API Microsoft Graph pour récupérer des informations de calendrier pour un utilisateur.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-101">This tutorial teaches you how to build an Android app that uses the Microsoft Graph API to retrieve calendar information for a user.</span></span>
+<span data-ttu-id="976cb-101">Ce didacticiel vous apprend à créer une application Android qui utilise l’API Microsoft Graph pour récupérer les informations de calendrier d’un utilisateur.</span><span class="sxs-lookup"><span data-stu-id="976cb-101">This tutorial teaches you how to build an Android app that uses the Microsoft Graph API to retrieve calendar information for a user.</span></span>
 
 > [!TIP]
-> <span data-ttu-id="9bfd1-102">Si vous préférez télécharger simplement le didacticiel terminé, vous pouvez télécharger ou cloner le [référentiel GitHub](https://github.com/microsoftgraph/msgraph-training-android).</span><span class="sxs-lookup"><span data-stu-id="9bfd1-102">If you prefer to just download the completed tutorial, you can download or clone the [GitHub repository](https://github.com/microsoftgraph/msgraph-training-android).</span></span>
+> <span data-ttu-id="976cb-102">Si vous préférez simplement télécharger le didacticiel terminé, vous pouvez télécharger ou cloner le référentiel [GitHub.](https://github.com/microsoftgraph/msgraph-training-android)</span><span class="sxs-lookup"><span data-stu-id="976cb-102">If you prefer to just download the completed tutorial, you can download or clone the [GitHub repository](https://github.com/microsoftgraph/msgraph-training-android).</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="9bfd1-103">Conditions préalables</span><span class="sxs-lookup"><span data-stu-id="9bfd1-103">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="976cb-103">Configuration requise</span><span class="sxs-lookup"><span data-stu-id="976cb-103">Prerequisites</span></span>
 
-<span data-ttu-id="9bfd1-104">Avant de commencer ce didacticiel, [Android Studio](https://developer.android.com/studio/) doit être installé sur votre ordinateur de développement.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-104">Before you start this tutorial, you should have [Android Studio](https://developer.android.com/studio/) installed on your development machine.</span></span>
+<span data-ttu-id="976cb-104">Avant de commencer ce didacticiel, [Android Studio](https://developer.android.com/studio/) doit être installé sur votre ordinateur de développement.</span><span class="sxs-lookup"><span data-stu-id="976cb-104">Before you start this tutorial, you should have [Android Studio](https://developer.android.com/studio/) installed on your development machine.</span></span>
+
+<span data-ttu-id="976cb-105">Vous devez également avoir un compte Microsoft personnel avec une boîte aux lettres sur Outlook.com ou un compte scolaire ou scolaire Microsoft.</span><span class="sxs-lookup"><span data-stu-id="976cb-105">You should also have either a personal Microsoft account with a mailbox on Outlook.com, or a Microsoft work or school account.</span></span> <span data-ttu-id="976cb-106">Si vous n’avez pas de compte Microsoft, deux options s’offrent à vous pour obtenir un compte gratuit :</span><span class="sxs-lookup"><span data-stu-id="976cb-106">If you don't have a Microsoft account, there are a couple of options to get a free account:</span></span>
+
+- <span data-ttu-id="976cb-107">Vous pouvez [vous inscrire à un nouveau compte Microsoft personnel.](https://signup.live.com/signup?wa=wsignin1.0&rpsnv=12&ct=1454618383&rver=6.4.6456.0&wp=MBI_SSL_SHARED&wreply=https://mail.live.com/default.aspx&id=64855&cbcxt=mai&bk=1454618383&uiflavor=web&uaid=b213a65b4fdc484382b6622b3ecaa547&mkt=E-US&lc=1033&lic=1)</span><span class="sxs-lookup"><span data-stu-id="976cb-107">You can [sign up for a new personal Microsoft account](https://signup.live.com/signup?wa=wsignin1.0&rpsnv=12&ct=1454618383&rver=6.4.6456.0&wp=MBI_SSL_SHARED&wreply=https://mail.live.com/default.aspx&id=64855&cbcxt=mai&bk=1454618383&uiflavor=web&uaid=b213a65b4fdc484382b6622b3ecaa547&mkt=E-US&lc=1033&lic=1).</span></span>
+- <span data-ttu-id="976cb-108">Vous pouvez vous inscrire au programme pour les développeurs [Office 365](https://developer.microsoft.com/office/dev-program) pour obtenir un abonnement Office 365 gratuit.</span><span class="sxs-lookup"><span data-stu-id="976cb-108">You can [sign up for the Office 365 Developer Program](https://developer.microsoft.com/office/dev-program) to get a free Office 365 subscription.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="9bfd1-105">Ce didacticiel a été rédigé avec Android Studio version 3.5.1 et le kit de développement logiciel (SDK) Android 10,0.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-105">This tutorial was written with Android Studio version 3.5.1 and the Android 10.0 SDK.</span></span> <span data-ttu-id="9bfd1-106">Les étapes de ce guide peuvent fonctionner avec d’autres versions, mais cela n’a pas été testé.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-106">The steps in this guide may work with other versions, but that has not been tested.</span></span>
+> <span data-ttu-id="976cb-109">Ce didacticiel a été écrit avec Android Studio version 4.1.1 et le SDK Android 10.0.</span><span class="sxs-lookup"><span data-stu-id="976cb-109">This tutorial was written with Android Studio version 4.1.1 and the Android 10.0 SDK.</span></span> <span data-ttu-id="976cb-110">Les étapes de ce guide peuvent fonctionner avec d’autres versions, mais elles n’ont pas été testées.</span><span class="sxs-lookup"><span data-stu-id="976cb-110">The steps in this guide may work with other versions, but that has not been tested.</span></span>
 
-## <a name="watch-the-tutorial"></a><span data-ttu-id="9bfd1-107">Regarder le didacticiel</span><span class="sxs-lookup"><span data-stu-id="9bfd1-107">Watch the tutorial</span></span>
+## <a name="feedback"></a><span data-ttu-id="976cb-111">Commentaires</span><span class="sxs-lookup"><span data-stu-id="976cb-111">Feedback</span></span>
 
-<span data-ttu-id="9bfd1-108">Ce module a été enregistré et est disponible dans le canal YouTube de développement Office.</span><span class="sxs-lookup"><span data-stu-id="9bfd1-108">This module has been recorded and is available in the Office Development YouTube channel.</span></span>
-
-<!-- markdownlint-disable MD033 MD034 -->
-<br/>
-
-> [!VIDEO https://www.youtube-nocookie.com/embed/BLmOmv4FSsQ]
-<!-- markdownlint-enable MD033 MD034 -->
-
-## <a name="feedback"></a><span data-ttu-id="9bfd1-109">Commentaires</span><span class="sxs-lookup"><span data-stu-id="9bfd1-109">Feedback</span></span>
-
-<span data-ttu-id="9bfd1-110">Veuillez fournir des commentaires sur ce didacticiel dans le [référentiel GitHub](https://github.com/microsoftgraph/msgraph-training-android).</span><span class="sxs-lookup"><span data-stu-id="9bfd1-110">Please provide any feedback on this tutorial in the [GitHub repository](https://github.com/microsoftgraph/msgraph-training-android).</span></span>
+<span data-ttu-id="976cb-112">Veuillez nous faire part de vos commentaires sur ce didacticiel dans [le référentiel GitHub.](https://github.com/microsoftgraph/msgraph-training-android)</span><span class="sxs-lookup"><span data-stu-id="976cb-112">Please provide any feedback on this tutorial in the [GitHub repository](https://github.com/microsoftgraph/msgraph-training-android).</span></span>

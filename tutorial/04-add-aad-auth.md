@@ -1,45 +1,29 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-<span data-ttu-id="7a7e5-101">Dans cet exercice, vous allez étendre l’application de l’exercice précédent pour prendre en charge l’authentification avec Azure AD.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-101">In this exercise you will extend the application from the previous exercise to support authentication with Azure AD.</span></span> <span data-ttu-id="7a7e5-102">Cela est nécessaire pour obtenir le jeton d’accès OAuth nécessaire pour appeler Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-102">This is required to obtain the necessary OAuth access token to call the Microsoft Graph.</span></span> <span data-ttu-id="7a7e5-103">Pour ce faire, vous allez intégrer la [bibliothèque d’authentification Microsoft (MSAL) pour Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) dans l’application.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-103">To do this, you will integrate the [Microsoft Authentication Library (MSAL) for Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) into the application.</span></span>
+<span data-ttu-id="7acdb-101">Dans cet exercice, vous allez étendre l’application de l’exercice précédent pour prendre en charge l’authentification avec Azure AD.</span><span class="sxs-lookup"><span data-stu-id="7acdb-101">In this exercise you will extend the application from the previous exercise to support authentication with Azure AD.</span></span> <span data-ttu-id="7acdb-102">Cette étape est nécessaire pour obtenir le jeton d’accès OAuth nécessaire pour appeler Microsoft Graph.</span><span class="sxs-lookup"><span data-stu-id="7acdb-102">This is required to obtain the necessary OAuth access token to call the Microsoft Graph.</span></span> <span data-ttu-id="7acdb-103">Pour ce faire, vous allez intégrer la bibliothèque d’authentification [Microsoft (MSAL) pour Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) dans l’application.</span><span class="sxs-lookup"><span data-stu-id="7acdb-103">To do this, you will integrate the [Microsoft Authentication Library (MSAL) for Android](https://github.com/AzureAD/microsoft-authentication-library-for-android) into the application.</span></span>
 
-1. <span data-ttu-id="7a7e5-104">Cliquez avec le bouton droit sur le dossier **res** , sélectionnez **nouveau**, puis **Répertoire de ressources Android**.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-104">Right-click the **res** folder and select **New**, then **Android Resource Directory**.</span></span>
+1. <span data-ttu-id="7acdb-104">Cliquez avec le bouton droit **sur le dossier res** et **sélectionnez Nouveau,** puis **Répertoire de ressources Android.**</span><span class="sxs-lookup"><span data-stu-id="7acdb-104">Right-click the **res** folder and select **New**, then **Android Resource Directory**.</span></span>
 
-1. <span data-ttu-id="7a7e5-105">Modifiez le **type** de `raw` ressource et sélectionnez **OK**.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-105">Change the **Resource type** to `raw` and select **OK**.</span></span>
+1. <span data-ttu-id="7acdb-105">Modifiez **le type de ressource** et `raw` sélectionnez **OK.**</span><span class="sxs-lookup"><span data-stu-id="7acdb-105">Change the **Resource type** to `raw` and select **OK**.</span></span>
 
-1. <span data-ttu-id="7a7e5-106">Cliquez avec le bouton droit sur le nouveau dossier **RAW** , sélectionnez **nouveau**, puis **fichier**.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-106">Right-click the new **raw** folder and select **New**, then **File**.</span></span>
+1. <span data-ttu-id="7acdb-106">Cliquez avec le bouton droit sur le nouveau **dossier** brut et **sélectionnez Nouveau,** puis **Fichier**.</span><span class="sxs-lookup"><span data-stu-id="7acdb-106">Right-click the new **raw** folder and select **New**, then **File**.</span></span>
 
-1. <span data-ttu-id="7a7e5-107">Nommez le `msal_config.json` fichier, puis sélectionnez **OK**.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-107">Name the file `msal_config.json` and select **OK**.</span></span>
+1. <span data-ttu-id="7acdb-107">Nommez le fichier `msal_config.json` et sélectionnez **OK.**</span><span class="sxs-lookup"><span data-stu-id="7acdb-107">Name the file `msal_config.json` and select **OK**.</span></span>
 
-1. <span data-ttu-id="7a7e5-108">Ajoutez les éléments suivants au fichier **msal_config. JSON** .</span><span class="sxs-lookup"><span data-stu-id="7a7e5-108">Add the following to the **msal_config.json** file.</span></span>
+1. <span data-ttu-id="7acdb-108">Ajoutez ce qui suit au **fichiermsal_config.jssur.**</span><span class="sxs-lookup"><span data-stu-id="7acdb-108">Add the following to the **msal_config.json** file.</span></span>
 
-    ```json
-    {
-      "client_id" : "YOUR_APP_ID_HERE",
-      "redirect_uri" : "msauth://YOUR_PACKAGE_NAME_HERE/callback",
-      "broker_redirect_uri_registered": false,
-      "account_mode": "SINGLE",
-      "authorities" : [
-        {
-          "type": "AAD",
-          "audience": {
-            "type": "AzureADandPersonalMicrosoftAccount"
-          },
-          "default": true
-        }
-      ]
-    }
-    ```
+    :::code language="json" source="../demo/GraphTutorial/msal_config.json.example":::
 
-    <span data-ttu-id="7a7e5-109">Remplacez `YOUR_APP_ID_HERE` par l’ID d’application de l’inscription de l’application `YOUR_PACKAGE_NAME_HERE` et remplacez par le nom du package de votre projet.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-109">Replace `YOUR_APP_ID_HERE` with the app ID from your app registration, and replace `YOUR_PACKAGE_NAME_HERE` with your project's package name.</span></span>
+1. <span data-ttu-id="7acdb-109">Remplacez `YOUR_APP_ID_HERE` par l’ID d’application de l’inscription de votre application et par le `com.example.graphtutorial` nom du package de votre projet.</span><span class="sxs-lookup"><span data-stu-id="7acdb-109">Replace `YOUR_APP_ID_HERE` with the app ID from your app registration, and replace `com.example.graphtutorial` with your project's package name.</span></span>
 
-> [!IMPORTANT]
-> <span data-ttu-id="7a7e5-110">Si vous utilisez le contrôle de code source tel que git, il est maintenant recommandé d’exclure le `msal_config.json` fichier du contrôle de code source afin d’éviter une fuite accidentelle de votre ID d’application.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-110">If you're using source control such as git, now would be a good time to exclude the `msal_config.json` file from source control to avoid inadvertently leaking your app ID.</span></span>
+    > [!IMPORTANT]
+    > <span data-ttu-id="7acdb-110">Si vous utilisez un contrôle source tel que Git, il est temps d’exclure le fichier du contrôle source afin d’éviter toute fuite accidentelle de votre `msal_config.json` ID d’application.</span><span class="sxs-lookup"><span data-stu-id="7acdb-110">If you're using source control such as git, now would be a good time to exclude the `msal_config.json` file from source control to avoid inadvertently leaking your app ID.</span></span>
 
-## <a name="implement-sign-in"></a><span data-ttu-id="7a7e5-111">Mettre en œuvre la connexion</span><span class="sxs-lookup"><span data-stu-id="7a7e5-111">Implement sign-in</span></span>
+## <a name="implement-sign-in"></a><span data-ttu-id="7acdb-111">Implémentation de la connexion</span><span class="sxs-lookup"><span data-stu-id="7acdb-111">Implement sign-in</span></span>
 
-<span data-ttu-id="7a7e5-112">Dans cette section, vous allez mettre à jour le manifeste pour permettre à MSAL d’utiliser un navigateur pour authentifier l’utilisateur, enregistrer votre URI de redirection comme étant géré par l’application, créer une classe d’assistance d’authentification et mettre à jour l’application pour se connecter et se déconnecter.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-112">In this section you will update the manifest to allow MSAL to use a browser to authenticate the user, register your redirect URI as being handled by the app, create an authentication helper class, and update the app to sign in and sign out.</span></span>
+<span data-ttu-id="7acdb-112">Dans cette section, vous allez mettre à jour le manifeste pour permettre à MSAL d’utiliser un navigateur pour authentifier l’utilisateur, inscrire votre URI de redirection comme étant géré par l’application, créer une classe d’aide à l’authentification et mettre à jour l’application pour se connecter et se dé dévier.</span><span class="sxs-lookup"><span data-stu-id="7acdb-112">In this section you will update the manifest to allow MSAL to use a browser to authenticate the user, register your redirect URI as being handled by the app, create an authentication helper class, and update the app to sign in and sign out.</span></span>
 
-1. <span data-ttu-id="7a7e5-113">Développez le dossier **app/Manifests** et ouvrez **AndroidManifest. xml**.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-113">Expand the **app/manifests** folder and open **AndroidManifest.xml**.</span></span> <span data-ttu-id="7a7e5-114">Ajoutez les éléments suivants au- `application` dessus de l’élément.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-114">Add the following elements above the `application` element.</span></span>
+1. <span data-ttu-id="7acdb-113">Développez **le dossier application/manifestes** et **ouvrezAndroidManifest.xml**.</span><span class="sxs-lookup"><span data-stu-id="7acdb-113">Expand the **app/manifests** folder and open **AndroidManifest.xml**.</span></span> <span data-ttu-id="7acdb-114">Ajoutez les éléments suivants au-dessus de `application` l’élément.</span><span class="sxs-lookup"><span data-stu-id="7acdb-114">Add the following elements above the `application` element.</span></span>
 
     ```xml
     <uses-permission android:name="android.permission.INTERNET" />
@@ -47,9 +31,9 @@
     ```
 
     > [!NOTE]
-    > <span data-ttu-id="7a7e5-115">Ces autorisations sont requises pour que la bibliothèque MSAL authentifie l’utilisateur.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-115">These permissions are required in order for the MSAL library to authenticate the user.</span></span>
+    > <span data-ttu-id="7acdb-115">Ces autorisations sont requises pour que la bibliothèque MSAL authentifier l’utilisateur.</span><span class="sxs-lookup"><span data-stu-id="7acdb-115">These permissions are required in order for the MSAL library to authenticate the user.</span></span>
 
-1. <span data-ttu-id="7a7e5-116">Ajoutez l’élément suivant à l' `application` intérieur de l’élément `YOUR_PACKAGE_NAME_HERE` , en remplaçant la chaîne par le nom de votre package.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-116">Add the following element inside the `application` element, replacing the `YOUR_PACKAGE_NAME_HERE` string with your package name.</span></span>
+1. <span data-ttu-id="7acdb-116">Ajoutez l’élément suivant à l’intérieur `application` de l’élément, en remplaçant la `YOUR_PACKAGE_NAME_HERE` chaîne par le nom de votre package.</span><span class="sxs-lookup"><span data-stu-id="7acdb-116">Add the following element inside the `application` element, replacing the `YOUR_PACKAGE_NAME_HERE` string with your package name.</span></span>
 
     ```xml
     <!--Intent filter to capture authorization code response from the default browser on the
@@ -68,90 +52,19 @@
     </activity>
     ```
 
-1. <span data-ttu-id="7a7e5-117">Cliquez avec le bouton droit sur le dossier **app/Java/com. example. graphtutorial** et sélectionnez **nouveau**, puis **classe Java**.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-117">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span> <span data-ttu-id="7a7e5-118">Nommez la `AuthenticationHelper` classe et sélectionnez **OK**.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-118">Name the class `AuthenticationHelper` and select **OK**.</span></span>
+1. <span data-ttu-id="7acdb-117">Cliquez avec le bouton droit sur le dossier **app/java/com.example.graphtutorial** et sélectionnez **Nouveau,** **puis Java classe .**</span><span class="sxs-lookup"><span data-stu-id="7acdb-117">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span> <span data-ttu-id="7acdb-118">Modifiez le **type** en **interface.**</span><span class="sxs-lookup"><span data-stu-id="7acdb-118">Change the **Kind** to **Interface**.</span></span> <span data-ttu-id="7acdb-119">Nommez l’interface `IAuthenticationHelperCreatedListener` et sélectionnez **OK.**</span><span class="sxs-lookup"><span data-stu-id="7acdb-119">Name the interface `IAuthenticationHelperCreatedListener` and select **OK**.</span></span>
 
-1. <span data-ttu-id="7a7e5-119">Ouvrez le nouveau fichier et remplacez son contenu par ce qui suit.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-119">Open the new file and replace its contents with the following.</span></span>
+1. <span data-ttu-id="7acdb-120">Ouvrez le nouveau fichier et remplacez son contenu par ce qui suit.</span><span class="sxs-lookup"><span data-stu-id="7acdb-120">Open the new file and replace its contents with the following.</span></span>
 
-    ```java
-    package com.example.graphtutorial;
+    :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/IAuthenticationHelperCreatedListener.java" id="ListenerSnippet":::
 
-    import android.app.Activity;
-    import android.content.Context;
-    import android.util.Log;
-    import com.microsoft.identity.client.AuthenticationCallback;
-    import com.microsoft.identity.client.IPublicClientApplication;
-    import com.microsoft.identity.client.ISingleAccountPublicClientApplication;
-    import com.microsoft.identity.client.PublicClientApplication;
-    import com.microsoft.identity.client.exception.MsalException;
+1. <span data-ttu-id="7acdb-121">Cliquez avec le bouton droit sur le dossier **app/java/com.example.graphtutorial** et sélectionnez **Nouveau,** **puis Java classe .**</span><span class="sxs-lookup"><span data-stu-id="7acdb-121">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span> <span data-ttu-id="7acdb-122">Nommez la classe `AuthenticationHelper` et sélectionnez **OK.**</span><span class="sxs-lookup"><span data-stu-id="7acdb-122">Name the class `AuthenticationHelper` and select **OK**.</span></span>
 
-    // Singleton class - the app only needs a single instance
-    // of PublicClientApplication
-    public class AuthenticationHelper {
-        private static AuthenticationHelper INSTANCE = null;
-        private ISingleAccountPublicClientApplication mPCA = null;
-        private String[] mScopes = { "User.Read", "Calendars.Read" };
+1. <span data-ttu-id="7acdb-123">Ouvrez le nouveau fichier et remplacez son contenu par ce qui suit.</span><span class="sxs-lookup"><span data-stu-id="7acdb-123">Open the new file and replace its contents with the following.</span></span>
 
-        private AuthenticationHelper(Context ctx) {
-            PublicClientApplication.createSingleAccountPublicClientApplication(ctx, R.raw.msal_config,
-                new IPublicClientApplication.ISingleAccountApplicationCreatedListener() {
-                    @Override
-                    public void onCreated(ISingleAccountPublicClientApplication application) {
-                        mPCA = application;
-                    }
+    :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/AuthenticationHelper.java" id="AuthHelperSnippet":::
 
-                    @Override
-                    public void onError(MsalException exception) {
-                        Log.e("AUTHHELPER", "Error creating MSAL application", exception);
-                    }
-                });
-        }
-
-        public static synchronized AuthenticationHelper getInstance(Context ctx) {
-            if (INSTANCE == null) {
-                INSTANCE = new AuthenticationHelper(ctx);
-            }
-
-            return INSTANCE;
-        }
-
-        // Version called from fragments. Does not create an
-        // instance if one doesn't exist
-        public static synchronized AuthenticationHelper getInstance() {
-            if (INSTANCE == null) {
-                throw new IllegalStateException(
-                    "AuthenticationHelper has not been initialized from MainActivity");
-            }
-
-            return INSTANCE;
-        }
-
-        public void acquireTokenInteractively(Activity activity, AuthenticationCallback callback) {
-            mPCA.signIn(activity, null, mScopes, callback);
-        }
-
-        public void acquireTokenSilently(AuthenticationCallback callback) {
-            // Get the authority from MSAL config
-            String authority = mPCA.getConfiguration().getDefaultAuthority().getAuthorityURL().toString();
-            mPCA.acquireTokenSilentAsync(mScopes, authority, callback);
-        }
-
-        public void signOut() {
-            mPCA.signOut(new ISingleAccountPublicClientApplication.SignOutCallback() {
-                @Override
-                public void onSignOut() {
-                    Log.d("AUTHHELPER", "Signed out");
-                }
-
-                @Override
-                public void onError(@NonNull MsalException exception) {
-                    Log.d("AUTHHELPER", "MSAL error signing out", exception);
-                }
-            });
-        }
-    }
-    ```
-
-1. <span data-ttu-id="7a7e5-120">Ouvrez **MainActivity** et ajoutez les instructions `import` suivantes.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-120">Open **MainActivity** and add the following `import` statements.</span></span>
+1. <span data-ttu-id="7acdb-124">Ouvrez **MainActivity** et ajoutez les `import` instructions suivantes.</span><span class="sxs-lookup"><span data-stu-id="7acdb-124">Open **MainActivity** and add the following `import` statements.</span></span>
 
     ```java
     import android.util.Log;
@@ -164,25 +77,24 @@
     import com.microsoft.identity.client.exception.MsalUiRequiredException;
     ```
 
-1. <span data-ttu-id="7a7e5-121">Ajoutez la propriété de membre suivante à `MainActivity` la classe.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-121">Add the following member property to the `MainActivity` class.</span></span>
+1. <span data-ttu-id="7acdb-125">Ajoutez les propriétés de membre suivantes à la `MainActivity` classe.</span><span class="sxs-lookup"><span data-stu-id="7acdb-125">Add the following member properties to the `MainActivity` class.</span></span>
 
     ```java
     private AuthenticationHelper mAuthHelper = null;
+    private boolean mAttemptInteractiveSignIn = false;
     ```
 
-1. <span data-ttu-id="7a7e5-122">Ajoutez le code suivant à la fin de `onCreate` la fonction.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-122">Add the following to the end of the `onCreate` function.</span></span>
+1. <span data-ttu-id="7acdb-126">Ajoutez la fonction suivante à la fin de la fonction `onCreate`.</span><span class="sxs-lookup"><span data-stu-id="7acdb-126">Add the following code to the end of the `onCreate` function.</span></span>
 
-    ```java
-    // Get the authentication helper
-    mAuthHelper = AuthenticationHelper.getInstance(getApplicationContext());
-    ```
+    :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/MainActivity.java" id="InitialLoginSnippet":::
 
-1. <span data-ttu-id="7a7e5-123">Ajoutez les fonctions suivantes à la `MainActivity` classe.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-123">Add the following functions to the `MainActivity` class.</span></span>
+1. <span data-ttu-id="7acdb-127">Ajoutez les fonctions suivantes à la `MainActivity` classe.</span><span class="sxs-lookup"><span data-stu-id="7acdb-127">Add the following functions to the `MainActivity` class.</span></span>
 
     ```java
     // Silently sign in - used if there is already a
     // user account in the MSAL cache
-    private void doSilentSignIn() {
+    private void doSilentSignIn(boolean shouldAttemptInteractive) {
+        mAttemptInteractiveSignIn = shouldAttemptInteractive;
         mAuthHelper.acquireTokenSilently(getAuthCallback());
     }
 
@@ -200,6 +112,7 @@
                 // Log the token for debug purposes
                 String accessToken = authenticationResult.getAccessToken();
                 Log.d("AUTH", String.format("Access token: %s", accessToken));
+
                 hideProgressBar();
 
                 setSignedInState(true);
@@ -211,12 +124,16 @@
                 // Check the type of exception and handle appropriately
                 if (exception instanceof MsalUiRequiredException) {
                     Log.d("AUTH", "Interactive login required");
-                    doInteractiveSignIn();
-
-                } else if (exception instanceof MsalClientException) {
-                    if (exception.getErrorCode() == "no_current_account") {
-                        Log.d("AUTH", "No current account, interactive login required");
+                    if (mAttemptInteractiveSignIn) {
                         doInteractiveSignIn();
+                    }
+                } else if (exception instanceof MsalClientException) {
+                    if (exception.getErrorCode() == "no_current_account" ||
+                        exception.getErrorCode() == "no_account_found") {
+                        Log.d("AUTH", "No current account, interactive login required");
+                        if (mAttemptInteractiveSignIn) {
+                            doInteractiveSignIn();
+                        }
                     } else {
                         // Exception inside MSAL, more info inside MsalError.java
                         Log.e("AUTH", "Client error authenticating", exception);
@@ -238,45 +155,28 @@
     }
     ```
 
-1. <span data-ttu-id="7a7e5-124">Remplacez les fonctions `signIn` et `signOut` existantes par ce qui suit.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-124">Replace the existing `signIn` and `signOut` functions with the following.</span></span>
+1. <span data-ttu-id="7acdb-128">Remplacez les fonctions `signIn` `signOut` existantes et existantes par ce qui suit.</span><span class="sxs-lookup"><span data-stu-id="7acdb-128">Replace the existing `signIn` and `signOut` functions with the following.</span></span>
 
-    ```java
-    private void signIn() {
-        showProgressBar();
-        // Attempt silent sign in first
-        // if this fails, the callback will handle doing
-        // interactive sign in
-        doSilentSignIn();
-    }
-
-    private void signOut() {
-        mAuthHelper.signOut();
-
-        setSignedInState(false);
-        openHomeFragment(mUserName);
-    }
-    ```
+    :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/MainActivity.java" id="SignInAndOutSnippet":::
 
     > [!NOTE]
-    > <span data-ttu-id="7a7e5-125">Notez que la `signIn` méthode effectue une connexion en mode silencieux (via `doSilentSignIn`).</span><span class="sxs-lookup"><span data-stu-id="7a7e5-125">Notice that the `signIn` method does a silent sign-in (via `doSilentSignIn`).</span></span> <span data-ttu-id="7a7e5-126">Le rappel de cette méthode effectue une connexion interactive si le mode silencieux échoue.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-126">The callback for this method will do an interactive sign-in if the silent one fails.</span></span> <span data-ttu-id="7a7e5-127">Cela évite d’inviter l’utilisateur à chaque fois qu’il lance l’application.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-127">This avoids having to prompt the user every time they launch the app.</span></span>
+    > <span data-ttu-id="7acdb-129">Notez que `signIn` la méthode effectue une connectez-vous silencieuse (via `doSilentSignIn` ).</span><span class="sxs-lookup"><span data-stu-id="7acdb-129">Notice that the `signIn` method does a silent sign-in (via `doSilentSignIn`).</span></span> <span data-ttu-id="7acdb-130">Le rappel de cette méthode se connecte de manière interactive en cas d’échec du mode silencieux.</span><span class="sxs-lookup"><span data-stu-id="7acdb-130">The callback for this method will do an interactive sign-in if the silent one fails.</span></span> <span data-ttu-id="7acdb-131">Cela évite d’avoir à inviter l’utilisateur chaque fois qu’il lance l’application.</span><span class="sxs-lookup"><span data-stu-id="7acdb-131">This avoids having to prompt the user every time they launch the app.</span></span>
 
-1. <span data-ttu-id="7a7e5-128">Enregistrez vos modifications et exécutez l’application.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-128">Save your changes and run the app.</span></span>
+1. <span data-ttu-id="7acdb-132">Enregistrez vos modifications et exécutez l’application.</span><span class="sxs-lookup"><span data-stu-id="7acdb-132">Save your changes and run the app.</span></span>
 
-1. <span data-ttu-id="7a7e5-129">Lorsque vous cliquez sur l’élément de menu **connexion** , un navigateur s’ouvre sur la page de connexion Azure ad.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-129">When you tap the **Sign in** menu item, a browser opens to the Azure AD login page.</span></span> <span data-ttu-id="7a7e5-130">Connectez-vous à votre compte.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-130">Sign in with your account.</span></span>
+1. <span data-ttu-id="7acdb-133">Lorsque vous appuyez sur **l’élément de** menu Connexion, un navigateur s’ouvre sur la page de connexion Azure AD.</span><span class="sxs-lookup"><span data-stu-id="7acdb-133">When you tap the **Sign in** menu item, a browser opens to the Azure AD login page.</span></span> <span data-ttu-id="7acdb-134">Connectez-vous à votre compte.</span><span class="sxs-lookup"><span data-stu-id="7acdb-134">Sign in with your account.</span></span>
 
-<span data-ttu-id="7a7e5-131">Une fois l’application reprise, vous devriez voir un jeton d’accès imprimé dans le journal de débogage dans Android Studio.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-131">Once the app resumes, you should see an access token printed in the debug log in Android Studio.</span></span>
+<span data-ttu-id="7acdb-135">Une fois l’application reprise, vous devez voir un jeton d’accès imprimé dans le journal de débogage dans Android Studio.</span><span class="sxs-lookup"><span data-stu-id="7acdb-135">Once the app resumes, you should see an access token printed in the debug log in Android Studio.</span></span>
 
-![Capture d’écran de la fenêtre logcat dans Android Studio](./images/debugger-access-token.png)
+![Capture d’écran de la fenêtre Logcat dans Android Studio](./images/debugger-access-token.png)
 
-## <a name="get-user-details"></a><span data-ttu-id="7a7e5-133">Obtenir les détails de l’utilisateur</span><span class="sxs-lookup"><span data-stu-id="7a7e5-133">Get user details</span></span>
+## <a name="get-user-details"></a><span data-ttu-id="7acdb-137">Obtenir les détails de l’utilisateur</span><span class="sxs-lookup"><span data-stu-id="7acdb-137">Get user details</span></span>
 
-<span data-ttu-id="7a7e5-134">Dans cette section, vous allez créer une classe d’assistance qui contiendra tous les appels à Microsoft Graph et mettre `MainActivity` à jour la classe pour utiliser cette nouvelle classe afin d’obtenir l’utilisateur connecté.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-134">In this section you will create a helper class to hold all of the calls to Microsoft Graph and update the `MainActivity` class to use this new class to get the logged-in user.</span></span>
+<span data-ttu-id="7acdb-138">Dans cette section, vous allez créer une classe d’aide pour contenir tous les appels à Microsoft Graph et mettre à jour la classe pour utiliser cette nouvelle classe afin d’obtenir l’utilisateur `MainActivity` connecté.</span><span class="sxs-lookup"><span data-stu-id="7acdb-138">In this section you will create a helper class to hold all of the calls to Microsoft Graph and update the `MainActivity` class to use this new class to get the logged-in user.</span></span>
 
-1. <span data-ttu-id="7a7e5-135">Cliquez avec le bouton droit sur le dossier **app/Java/com. example. graphtutorial** et sélectionnez **nouveau**, puis **classe Java**.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-135">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span>
+1. <span data-ttu-id="7acdb-139">Cliquez avec le bouton droit sur le dossier **app/java/com.example.graphtutorial** et sélectionnez **Nouveau,** **puis Java classe .**</span><span class="sxs-lookup"><span data-stu-id="7acdb-139">Right-click the **app/java/com.example.graphtutorial** folder and select **New**, then **Java Class**.</span></span> <span data-ttu-id="7acdb-140">Nommez la classe `GraphHelper` et sélectionnez **OK.**</span><span class="sxs-lookup"><span data-stu-id="7acdb-140">Name the class `GraphHelper` and select **OK**.</span></span>
 
-1. <span data-ttu-id="7a7e5-136">Nommez la `GraphHelper` classe et sélectionnez **OK**.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-136">Name the class `GraphHelper` and select **OK**.</span></span>
-
-1. <span data-ttu-id="7a7e5-137">Ouvrez le nouveau fichier et remplacez son contenu par ce qui suit.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-137">Open the new file and replace its contents with the following.</span></span>
+1. <span data-ttu-id="7acdb-141">Ouvrez le nouveau fichier et remplacez son contenu par ce qui suit.</span><span class="sxs-lookup"><span data-stu-id="7acdb-141">Open the new file and replace its contents with the following.</span></span>
 
     ```java
     package com.example.graphtutorial;
@@ -320,71 +220,32 @@
             mAccessToken = accessToken;
 
             // GET /me (logged in user)
-            mClient.me().buildRequest().get(callback);
+            mClient.me().buildRequest()
+                    .select("displayName,mail,mailboxSettings,userPrincipalName")
+                    .get(callback);
         }
     }
     ```
 
     > [!NOTE]
-    > <span data-ttu-id="7a7e5-138">Examinez ce que fait ce code.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-138">Consider what this code does.</span></span>
+    > <span data-ttu-id="7acdb-142">Prenez en compte ce que fait ce code.</span><span class="sxs-lookup"><span data-stu-id="7acdb-142">Consider what this code does.</span></span>
     >
-    > - <span data-ttu-id="7a7e5-139">Elle implémente l' `IAuthenticationProvider` interface pour insérer le jeton d’accès dans `Authorization` l’en-tête des demandes http sortantes.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-139">It implements the `IAuthenticationProvider` interface to insert the access token in the `Authorization` header on outgoing HTTP requests.</span></span>
-    > - <span data-ttu-id="7a7e5-140">Il expose une `getUser` fonction pour obtenir les informations de l’utilisateur connecté à partir du `/me` point de terminaison Graph.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-140">It exposes a `getUser` function to get the logged-in user's information from the `/me` Graph endpoint.</span></span>
+    > - <span data-ttu-id="7acdb-143">Il implémente `IAuthenticationProvider` l’interface pour insérer le jeton d’accès dans `Authorization` l’en-tête des demandes HTTP sortantes.</span><span class="sxs-lookup"><span data-stu-id="7acdb-143">It implements the `IAuthenticationProvider` interface to insert the access token in the `Authorization` header on outgoing HTTP requests.</span></span>
+    > - <span data-ttu-id="7acdb-144">Il expose une fonction pour obtenir les informations de l’utilisateur connecté à partir du point de terminaison `getUser` `/me` Graph.</span><span class="sxs-lookup"><span data-stu-id="7acdb-144">It exposes a `getUser` function to get the logged-in user's information from the `/me` Graph endpoint.</span></span>
 
-1. <span data-ttu-id="7a7e5-141">Ajoutez les instructions `import` suivantes en haut du fichier **MainActivity** .</span><span class="sxs-lookup"><span data-stu-id="7a7e5-141">Add the following `import` statements to the top of the **MainActivity** file.</span></span>
+1. <span data-ttu-id="7acdb-145">Ajoutez les `import` instructions suivantes en haut du **fichier MainActivity.**</span><span class="sxs-lookup"><span data-stu-id="7acdb-145">Add the following `import` statements to the top of the **MainActivity** file.</span></span>
 
     ```java
     import com.microsoft.graph.concurrency.ICallback;
     import com.microsoft.graph.core.ClientException;
-    import com.microsoft.graph.models.extensions.IGraphServiceClient;
     import com.microsoft.graph.models.extensions.User;
     ```
 
-1. <span data-ttu-id="7a7e5-142">Ajoutez la fonction suivante à la `MainActivity` classe pour générer un `ICallback` pour l’appel Graph.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-142">Add the following function to the `MainActivity` class to generate an `ICallback` for the Graph call.</span></span>
+1. <span data-ttu-id="7acdb-146">Ajoutez la fonction suivante à la `MainActivity` classe pour générer un appel `ICallback` Graph.</span><span class="sxs-lookup"><span data-stu-id="7acdb-146">Add the following function to the `MainActivity` class to generate an `ICallback` for the Graph call.</span></span>
 
-    ```java
-    private ICallback<User> getUserCallback() {
-        return new ICallback<User>() {
-            @Override
-            public void success(User user) {
-                Log.d("AUTH", "User: " + user.displayName);
+    :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/MainActivity.java" id="GetUserCallbackSnippet":::
 
-                mUserName = user.displayName;
-                mUserEmail = user.mail == null ? user.userPrincipalName : user.mail;
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideProgressBar();
-
-                        setSignedInState(true);
-                        openHomeFragment(mUserName);
-                    }
-                });
-
-            }
-
-            @Override
-            public void failure(ClientException ex) {
-                Log.e("AUTH", "Error getting /me", ex);
-                mUserName = "ERROR";
-                mUserEmail = "ERROR";
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideProgressBar();
-
-                        setSignedInState(true);
-                        openHomeFragment(mUserName);
-                    }
-                });
-            }
-        };
-    }
-    ```
-
-1. <span data-ttu-id="7a7e5-143">Supprimez les lignes suivantes qui définissent le nom d’utilisateur et l’adresse de messagerie :</span><span class="sxs-lookup"><span data-stu-id="7a7e5-143">Remove the following lines that set the user name and email:</span></span>
+1. <span data-ttu-id="7acdb-147">Supprimez les lignes suivantes qui définissent le nom d’utilisateur et le courrier électronique :</span><span class="sxs-lookup"><span data-stu-id="7acdb-147">Remove the following lines that set the user name and email:</span></span>
 
     ```java
     // For testing
@@ -392,19 +253,8 @@
     mUserEmail = "meganb@contoso.com";
     ```
 
-1. <span data-ttu-id="7a7e5-144">Remplacez le `onSuccess` remplacement dans le `AuthenticationCallback` par le suivant.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-144">Replace the `onSuccess` override in the `AuthenticationCallback` with the following.</span></span>
+1. <span data-ttu-id="7acdb-148">Remplacez `onSuccess` le remplacement dans l’exemple `AuthenticationCallback` suivant.</span><span class="sxs-lookup"><span data-stu-id="7acdb-148">Replace the `onSuccess` override in the `AuthenticationCallback` with the following.</span></span>
 
-    ```java
-    @Override
-    public void onSuccess(IAuthenticationResult authenticationResult) {
-        // Log the token for debug purposes
-        String accessToken = authenticationResult.getAccessToken();
-        Log.d("AUTH", String.format("Access token: %s", accessToken));
+    :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/MainActivity.java" id="OnSuccessSnippet":::
 
-        // Get Graph client and get user
-        GraphHelper graphHelper = GraphHelper.getInstance();
-        graphHelper.getUser(accessToken, getUserCallback());
-    }
-    ```
-
-<span data-ttu-id="7a7e5-145">Si vous enregistrez vos modifications et exécutez l’application maintenant, une fois connecté, l’interface utilisateur est mise à jour avec le nom d’affichage et l’adresse de messagerie de l’utilisateur.</span><span class="sxs-lookup"><span data-stu-id="7a7e5-145">If you save your changes and run the app now, after sign-in the UI is updated with the user's display name and email address.</span></span>
+1. <span data-ttu-id="7acdb-149">Enregistrez vos modifications et exécutez l’application.</span><span class="sxs-lookup"><span data-stu-id="7acdb-149">Save your changes and run the app.</span></span> <span data-ttu-id="7acdb-150">Une fois que l’interface utilisateur est mise à jour avec le nom d’affichage et l’adresse e-mail de l’utilisateur.</span><span class="sxs-lookup"><span data-stu-id="7acdb-150">After sign-in the UI is updated with the user's display name and email address.</span></span>
