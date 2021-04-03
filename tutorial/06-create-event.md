@@ -5,12 +5,12 @@ Dans cette section, vous allez ajouter la possibilité de créer des événement
 1. Ouvrez **GraphHelper** et ajoutez les `import` instructions suivantes en haut du fichier.
 
     ```java
-    import com.microsoft.graph.models.extensions.Attendee;
-    import com.microsoft.graph.models.extensions.DateTimeTimeZone;
-    import com.microsoft.graph.models.extensions.EmailAddress;
-    import com.microsoft.graph.models.extensions.ItemBody;
-    import com.microsoft.graph.models.generated.AttendeeType;
-    import com.microsoft.graph.models.generated.BodyType;
+    import com.microsoft.graph.models.Attendee;
+    import com.microsoft.graph.models.DateTimeTimeZone;
+    import com.microsoft.graph.models.EmailAddress;
+    import com.microsoft.graph.models.ItemBody;
+    import com.microsoft.graph.models.AttendeeType;
+    import com.microsoft.graph.models.BodyType;
     ```
 
 1. Ajoutez la fonction suivante à `GraphHelper` la classe pour créer un événement.
@@ -39,12 +39,6 @@ Dans cette section, vous allez ajouter la possibilité de créer des événement
     import com.google.android.material.snackbar.BaseTransientBottomBar;
     import com.google.android.material.snackbar.Snackbar;
     import com.google.android.material.textfield.TextInputLayout;
-    import com.microsoft.graph.concurrency.ICallback;
-    import com.microsoft.graph.core.ClientException;
-    import com.microsoft.graph.models.extensions.Event;
-    import com.microsoft.identity.client.AuthenticationCallback;
-    import com.microsoft.identity.client.IAuthenticationResult;
-    import com.microsoft.identity.client.exception.MsalException;
     import java.time.ZoneId;
     import java.time.ZonedDateTime;
     ```

@@ -4,11 +4,11 @@ Commencez par créer un projet Android Studio.
 
 1. Ouvrez Android Studio, puis **sélectionnez Démarrer un nouveau** projet Android Studio sur l’écran d’accueil.
 
-1. Dans la **boîte de dialogue Créer un** projet, sélectionnez Activité **vide,** puis **sélectionnez Suivant**.
+1. Dans la **boîte de dialogue Créer un** projet, sélectionnez Activité **vide,** puis **sélectionnez Suivant.**
 
     ![Capture d’écran de la boîte de dialogue Créer un projet dans Android Studio](./images/choose-project.png)
 
-1. Dans la **boîte de** dialogue  Configurer votre projet, définissez le nom sur , assurez-vous que le champ Langue est configuré sur , et assurez-vous que le niveau `Graph Tutorial`  `Java` **d’API** minimum est configuré sur `API 29: Android 10.0 (Q)` . Modifiez le **nom du package et** **l’emplacement d’enregistrer** selon vos besoins. Sélectionnez **Terminer**.
+1. Dans la **boîte de** dialogue  Configurer votre projet, définissez le nom sur , assurez-vous que le champ Langue est configuré sur , et assurez-vous que le niveau `Graph Tutorial`  `Java` **d’API** minimum est configuré sur `API 29: Android 10.0 (Q)` . Modifiez le nom **du package et** **l’emplacement d’enregistrer** selon vos besoins. Sélectionnez **Terminer**.
 
     ![Capture d’écran de la boîte de dialogue Configurer votre projet](./images/configure-project.png)
 
@@ -23,7 +23,7 @@ Avant de passer à autre chose, installez des dépendances supplémentaires que 
 - [Bibliothèque d’authentification Microsoft (MSAL) pour Android pour gérer](https://github.com/AzureAD/microsoft-authentication-library-for-android) l’authentification Azure AD et la gestion des jetons.
 - [SDK Microsoft Graph pour Java](https://github.com/microsoftgraph/msgraph-sdk-java) pour effectuer des appels à Microsoft Graph.
 
-1. Développez **Les scripts Gradle,** puis **ouvrez build.gradle (Module : Graph_Tutorial.app).**
+1. Développez **Gradle Scripts,** puis **ouvrez build.gradle (Module : Graph_Tutorial.app).**
 
 1. Ajoutez les lignes suivantes à l’intérieur de `dependencies` la valeur.
 
@@ -33,7 +33,7 @@ Avant de passer à autre chose, installez des dépendances supplémentaires que 
 
     ```Gradle
     packagingOptions {
-        pickFirst 'META-INF/jersey-module-version'
+        pickFirst 'META-INF/*'
     }
     ```
 
@@ -57,7 +57,7 @@ Dans cette section, vous allez créer des icônes pour le menu de navigation de 
 
 #### <a name="create-icons"></a>Créer des icônes
 
-1. Cliquez avec le bouton droit **sur le dossier app/res/drawable** et sélectionnez **Nouveau,** puis **Vector Asset**.
+1. Cliquez avec le bouton droit **sur le dossier app/res/drawable** et **sélectionnez Nouveau,** puis **Vector Asset**.
 
 1. Cliquez sur le bouton d’icône en haut du **ClipArt.**
 
@@ -92,23 +92,27 @@ Dans cette section, vous allez créer des icônes pour le menu de navigation de 
 
 #### <a name="update-application-theme-and-layout"></a>Mettre à jour le thème et la disposition de l’application
 
-1. Ouvrez **le fichier app/res/values/styles.xml** et remplacez-le `Theme.AppCompat.Light.DarkActionBar` par `Theme.AppCompat.Light.NoActionBar` .
-
-1. Ajoutez les lignes suivantes à l’intérieur de `style` l’élément.
+1. Ouvrez **le fichier app/res/values/themes.xml** et ajoutez les lignes suivantes à l’intérieur de l’élément. `style`
 
     ```xml
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
+    ```
+
+1. Ouvrez **le fichier app/res/values-night/themes.xml** et ajoutez les lignes suivantes à l’intérieur de l’élément. `style`
+
+    ```xml
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
     ```
 
 1. Cliquez avec le bouton droit **sur le dossier application/res/layout.**
 
 1. Sélectionnez **Nouveau,** puis **Fichier de ressources de disposition.**
 
-1. Nommez le fichier `nav_header` et modifiez **l’élément racine** `LinearLayout` par , puis sélectionnez **OK**.
+1. Nommez le fichier `nav_header` et modifiez **l’élément racine** `LinearLayout` en , puis sélectionnez **OK**.
 
-1. Ouvrez **lenav_header.xml** et sélectionnez **l’onglet** Texte. Remplacez tout le contenu par ce qui suit.
+1. Ouvrez le **nav_header.xml** et sélectionnez **l’onglet Code.** Remplacez tout le contenu par ce qui suit.
 
     :::code language="xml" source="../demo/GraphTutorial/app/src/main/res/layout/nav_header.xml":::
 
@@ -285,7 +289,7 @@ Dans cette section, vous allez créer des fragments pour les affichages d’accu
 
 1. Cliquez avec le bouton droit sur le **dossier application/res/layout** et sélectionnez **Nouveau,** puis fichier **de ressources de disposition.**
 
-1. Nommez le fichier `fragment_home` et modifiez **l’élément racine** `RelativeLayout` par , puis sélectionnez **OK**.
+1. Nommez le fichier `fragment_home` et modifiez **l’élément racine** `RelativeLayout` en , puis sélectionnez **OK**.
 
 1. Ouvrez **fragment_home.xml** fichier et remplacez son contenu par ce qui suit.
 
@@ -293,7 +297,7 @@ Dans cette section, vous allez créer des fragments pour les affichages d’accu
 
 1. Cliquez avec le bouton droit sur le **dossier application/res/layout** et sélectionnez **Nouveau,** puis fichier **de ressources de disposition.**
 
-1. Nommez le fichier `fragment_calendar` et modifiez **l’élément racine** `RelativeLayout` par , puis sélectionnez **OK**.
+1. Nommez le fichier `fragment_calendar` et modifiez **l’élément racine** `RelativeLayout` en , puis sélectionnez **OK**.
 
 1. Ouvrez **fragment_calendar.xml** fichier et remplacez son contenu par ce qui suit.
 
@@ -315,7 +319,7 @@ Dans cette section, vous allez créer des fragments pour les affichages d’accu
 
 1. Cliquez avec le bouton droit sur le **dossier application/res/layout** et sélectionnez **Nouveau,** puis fichier **de ressources de disposition.**
 
-1. Nommez le fichier `fragment_new_event` et modifiez **l’élément racine** `RelativeLayout` par , puis sélectionnez **OK**.
+1. Nommez le fichier `fragment_new_event` et modifiez **l’élément racine** `RelativeLayout` en , puis sélectionnez **OK**.
 
 1. Ouvrez **fragment_new_event.xml** fichier et remplacez son contenu par ce qui suit.
 

@@ -1,0 +1,14 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 8472ef5068c4ac7a1f19ebd6d428d4897387d6c8
+ms.sourcegitcommit: 851beafa5438937aeae8176f528530cf5d147815
+ms.translationtype: MT
+ms.contentlocale: fr-FR
+ms.lasthandoff: 04/01/2021
+ms.locfileid: "51501353"
+languages:
+- java
+services:
+- Outlook
+- Office 365
+- Microsoft identity platform
+dependencyFile: demo/GraphTutorial/app/build.gradle

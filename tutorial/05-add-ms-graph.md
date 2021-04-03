@@ -12,12 +12,13 @@ Dans cette section, vous allez étendre la classe pour ajouter une fonction afin
     import com.microsoft.graph.options.Option;
     import com.microsoft.graph.options.HeaderOption;
     import com.microsoft.graph.options.QueryOption;
-    import com.microsoft.graph.requests.extensions.IEventCollectionPage;
-    import com.microsoft.graph.requests.extensions.IEventCollectionRequestBuilder;
+    import com.microsoft.graph.requests.EventCollectionPage;
+    import com.microsoft.graph.requests.EventCollectionRequestBuilder;
     import java.time.ZonedDateTime;
     import java.time.format.DateTimeFormatter;
     import java.util.LinkedList;
     import java.util.List;
+    import java.util.concurrent.CompletableFuture;
     ```
 
 1. Ajoutez les fonctions suivantes à la `GraphHelper` classe.
@@ -33,7 +34,7 @@ Dans cette section, vous allez étendre la classe pour ajouter une fonction afin
     >   - La fonction `select` limite les champs renvoyés pour chaque événement à ceux que la vue utilise réellement.
     >   - La `orderby` fonction trie les résultats par heure de début.
     >   - La `top` fonction demande 25 résultats par page.
-    > - Un rappel est défini ( ) pour vérifier si d’autres résultats sont disponibles et demander des `pagingCallback` pages supplémentaires si nécessaire.
+    > - La `processPage` fonction vérifie si d’autres résultats sont disponibles et demande des pages supplémentaires si nécessaire.
 
 1. Cliquez avec le bouton droit sur le dossier **app/java/com.example.graphtutorial** et sélectionnez **Nouveau,** **puis Java classe .** Nommez la classe `GraphToIana` et sélectionnez **OK.**
 
@@ -48,9 +49,8 @@ Dans cette section, vous allez étendre la classe pour ajouter une fonction afin
     import android.widget.ListView;
     import com.google.android.material.snackbar.BaseTransientBottomBar;
     import com.google.android.material.snackbar.Snackbar;
-    import com.microsoft.graph.concurrency.ICallback;
     import com.microsoft.graph.core.ClientException;
-    import com.microsoft.graph.models.extensions.Event;
+    import com.microsoft.graph.models.Event;
     import com.microsoft.identity.client.AuthenticationCallback;
     import com.microsoft.identity.client.IAuthenticationResult;
     import com.microsoft.identity.client.exception.MsalException;
@@ -72,31 +72,13 @@ Dans cette section, vous allez étendre la classe pour ajouter une fonction afin
 
     :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/CalendarFragment.java" id="ProgressBarSnippet":::
 
-1. Ajoutez la fonction suivante pour fournir un rappel pour la `getCalendarView` fonction dans `GraphHelper` .
+1. Ajoutez la fonction suivante pour obtenir la liste des événements à des fins de débogage.
 
     ```java
-    private ICallback<List<Event>> getCalendarViewCallback() {
-        return new ICallback<List<Event>>() {
-            @Override
-            public void success(List<Event> eventList) {
-                mEventList = eventList;
-
-                // Temporary for debugging
-                String jsonEvents = GraphHelper.getInstance().serializeObject(mEventList);
-                Log.d("GRAPH", jsonEvents);
-
-                hideProgressBar();
-            }
-
-            @Override
-            public void failure(ClientException ex) {
-                hideProgressBar();
-                Log.e("GRAPH", "Error getting events", ex);
-                Snackbar.make(getView(),
-                    ex.getMessage(),
-                    BaseTransientBottomBar.LENGTH_LONG).show();
-            }
-        };
+    private void addEventsToList() {
+        // Temporary for debugging
+        String jsonEvents = GraphHelper.getInstance().serializeObject(mEventList);
+        Log.d("GRAPH", jsonEvents);
     }
     ```
 
@@ -104,15 +86,11 @@ Dans cette section, vous allez étendre la classe pour ajouter une fonction afin
 
     :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/CalendarFragment.java" id="OnCreateViewSnippet":::
 
-    Notez ce que fait ce code. Tout d’abord, il `acquireTokenSilently` appelle pour obtenir le jeton d’accès. Il est préférable d’appeler cette méthode chaque fois qu’un jeton d’accès est nécessaire, car elle tire parti des capacités de mise en cache et d’actualisation des jetons de MSAL. En interne, MSAL recherche un jeton mis en cache, puis vérifie s’il a expiré. Si le jeton est présent et qu’il n’a pas expiré, il renvoie simplement le jeton mis en cache. S’il a expiré, il tente d’actualiser le jeton avant de le renvoyer.
-
-    Une fois le jeton récupéré, le code appelle ensuite `getCalendarView` la méthode pour obtenir les événements de l’utilisateur.
-
 1. Exécutez l’application, connectez-vous et appuyez sur **l’élément** de navigation Calendrier dans le menu. Vous devriez voir un vidage JSON des événements dans le journal de débogage dans Android Studio.
 
 ## <a name="display-the-results"></a>Afficher les résultats
 
-Vous pouvez désormais remplacer le vidage JSON par un autre qui permet d’afficher les résultats de manière conviviale. Dans cette section, vous allez ajouter un élément au fragment de calendrier, créer une disposition pour chaque élément de l’affichage et créer une carte de liste personnalisée pour celle qui mase les champs de chacun d’eux à l’élément approprié dans `ListView` `ListView` l’affichage. `ListView` `Event` `TextView`
+Vous pouvez désormais remplacer le vidage JSON par un contenu qui permet d’afficher les résultats de manière conviviale. Dans cette section, vous allez ajouter un élément au fragment de calendrier, créer une disposition pour chaque élément de l’affichage et créer une carte de liste personnalisée pour celle qui mase les champs de chacun d’eux à l’élément approprié dans `ListView` `ListView` l’affichage. `ListView` `Event` `TextView`
 
 1. Remplacez `TextView` **l’application/res/layout/fragment_calendar.xml** par un `ListView` .
 
@@ -134,13 +112,9 @@ Vous pouvez désormais remplacer le vidage JSON par un autre qui permet d’affi
 
     :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/EventListAdapter.java" id="EventListAdapterSnippet":::
 
-1. Ouvrez **la classe CalendarFragment** et ajoutez la fonction suivante à la classe.
+1. Ouvrez **la classe CalendarFragment** et remplacez la fonction `addEventsToList` existante par ce qui suit.
 
     :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/CalendarFragment.java" id="AddEventsToListSnippet":::
-
-1. Remplacez le code de débogage temporaire de la `success` substitution par `addEventsToList();` .
-
-    :::code language="java" source="../demo/GraphTutorial/app/src/main/java/com/example/graphtutorial/CalendarFragment.java" id="SuccessSnippet" highlight="5":::
 
 1. Exécutez l’application, connectez-vous et appuyez sur **l’élément de** navigation Calendrier. Vous devriez voir la liste des événements.
 

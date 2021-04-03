@@ -5,7 +5,7 @@ Ce didacticiel vous apprend à créer une application Android qui utilise l’AP
 > [!TIP]
 > Si vous préférez simplement télécharger le didacticiel terminé, vous pouvez télécharger ou cloner le référentiel [GitHub.](https://github.com/microsoftgraph/msgraph-training-android)
 
-## <a name="prerequisites"></a>Configuration requise
+## <a name="prerequisites"></a>Conditions préalables
 
 Avant de commencer ce didacticiel, [Android Studio](https://developer.android.com/studio/) doit être installé sur votre ordinateur de développement.
 
@@ -15,7 +15,7 @@ Vous devez également avoir un compte Microsoft personnel avec une boîte aux le
 - Vous pouvez vous inscrire au programme pour les développeurs [Office 365](https://developer.microsoft.com/office/dev-program) pour obtenir un abonnement Office 365 gratuit.
 
 > [!NOTE]
-> Ce didacticiel a été écrit avec Android Studio version 4.1.1 et le SDK Android 10.0. Les étapes de ce guide peuvent fonctionner avec d’autres versions, mais elles n’ont pas été testées.
+> Ce didacticiel a été écrit avec Android Studio version 4.1.3 et le SDK Android 10.0. Les étapes de ce guide peuvent fonctionner avec d’autres versions, mais elles n’ont pas été testées.
 
 ## <a name="feedback"></a>Commentaires
 
